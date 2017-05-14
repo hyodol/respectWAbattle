@@ -14,7 +14,6 @@ public class move_test : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		target = GameObject.Find("targetpointA");
-		//Vector3 targetposition = target.transform.position; 
 		rb = this.GetComponent<Rigidbody> ();
 
 	}
@@ -26,9 +25,12 @@ public class move_test : MonoBehaviour {
 
 	}
 
-	void movetotarget () {
+	IEnumerable movetotarget () {
 		//while (Vector3.Distance (target.transform.position, this.transform.position) >  0.3f) {
 			rb.velocity = transform.forward * 10f;
+		if(Vector3.Distance (target.transform.position, this.transform.position) < 0.01f) {
+			yield break;
+		} 
 		//}
 	}
 }
