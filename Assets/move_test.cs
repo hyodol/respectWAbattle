@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class move_test : MonoBehaviour {
-
-	private bool arrived;
 	public GameObject target;
 	[SerializeField]
 	private float speed = 1f;
@@ -13,19 +11,21 @@ public class move_test : MonoBehaviour {
 	void Start () {
 		target = GameObject.Find("targetpointA");
 		rb = this.GetComponent<Rigidbody> ();
-		arrived = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		this.transform.LookAt (target.transform);
-		if (Vector3.Distance (target.transform.position, this.transform.position) > 1f) {
 			MoveToTarget ();	
-
-		}
 			}
 
 	void MoveToTarget () {
-		rb.velocity = transform.forward * speed;
+		if (Vector3.Distance (target.transform.position, transform.position) > 0.1f) {
+			rb.velocity = transform.forward * speed;
+		} 
+		else {
+			speed = 0f;
+		}
+
 	}
 }
