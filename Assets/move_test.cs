@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class move_test : MonoBehaviour {
+	private bool moving; 
 	GameObject result = null;
 	GameObject mainCamera;
 	public GameObject target;
@@ -15,6 +16,7 @@ public class move_test : MonoBehaviour {
 		//target = GameObject.Find("targetpointA");
 		rb = this.GetComponent<Rigidbody> ();
 		mainCamera = GameObject.Find ("Main Camera");
+		moving = false;
 	}
 	
 	// Update is called once per frame
@@ -26,22 +28,22 @@ public class move_test : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown (0)) {
 
-				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-				RaycastHit hit = new RaycastHit ();
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit = new RaycastHit ();
 
 				if (Physics.Raycast (ray, out hit)) {
-
-					result = hit.collider.gameObject;
-					this.transform.LookAt (result.transform.position);
-					rb.velocity = transform.forward * speed;
+				result = hit.collider.gameObject;
+				this.transform.LookAt (result.transform.position);
+				rb.velocity = transform.forward * speed;
+				moving = true;
 					}
 		}
-
-		if (Vector3.Distance (result.transform.position, this.transform.position) > 0.1f) {
-
-			rb.velocity = new Vector3(0,0,0);
-
-		} 
+		if (moving = true) {
+			if (Vector3.Distance (result.transform.position, this.transform.position) > 0.1f) {
+				rb.velocity = new Vector3 (0, 0, 0);
+				moving = false;
+			} 
+		}
 
 
 	}
