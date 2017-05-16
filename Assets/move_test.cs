@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class move_test : MonoBehaviour {
-	bool arrived = false;
 	GameObject result = null;
 	GameObject mainCamera;
 	public GameObject target;
@@ -25,7 +24,7 @@ public class move_test : MonoBehaviour {
 		Collider2D col = Physics2D.OverlapPoint (mousePos);
 
 
-			if (Input.GetMouseButtonDown (0)) {
+		if (Input.GetMouseButtonDown (0)) {
 
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit = new RaycastHit ();
@@ -34,26 +33,18 @@ public class move_test : MonoBehaviour {
 
 					result = hit.collider.gameObject;
 					this.transform.LookAt (result.transform.position);
-					MoveToTarget ();	
-				}
-
-
-			}
-
-
-	}
-
-	void MoveToTarget () {
-		if (Vector3.Distance (result.transform.position, transform.position) > 0.1f) {
-
-			rb.velocity = transform.forward * speed;
-		
-		} 
-		else {
-
-			speed = 0f;
-
+					rb.velocity = transform.forward * speed;
+					}
 		}
 
+		if (Vector3.Distance (result.transform.position, this.transform.position) > 0.1f) {
+
+			rb.velocity = new Vector3(0,0,0);
+
+		} 
+
+
 	}
+
+
 }
