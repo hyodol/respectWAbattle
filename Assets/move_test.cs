@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class move_test : MonoBehaviour {
-	private bool moving; 
+	public bool moving; 
 	GameObject result = null;
 	GameObject mainCamera;
 	public GameObject target;
@@ -10,12 +10,14 @@ public class move_test : MonoBehaviour {
 	[SerializeField]
 	private float speed = 10f;
 	Rigidbody rb;
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
 		//target = GameObject.Find("targetpointA");
 		rb = this.GetComponent<Rigidbody> ();
 		mainCamera = GameObject.Find ("Main Camera");
+		anim = GetComponent<Animator> ();
 		moving = false;
 	}
 	
@@ -37,6 +39,8 @@ public class move_test : MonoBehaviour {
 				this.transform.LookAt (result.transform.position);
 				rb.velocity = transform.forward * speed;
 				moving = true;
+				anim.SetTrigger ("moving");
+
 					}
 		}
 		if (moving) {
@@ -44,6 +48,7 @@ public class move_test : MonoBehaviour {
 				rb.velocity = new Vector3 (0, 0, 0);
 				moving = false;
                 Debug.Log("moving");
+				anim.SetTrigger ("moving");
             } 
 		}
 
