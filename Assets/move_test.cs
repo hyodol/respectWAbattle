@@ -8,7 +8,7 @@ public class move_test : MonoBehaviour {
 	public GameObject target;
 	Camera main;
 	[SerializeField]
-	private float speed = 1f;
+	private float speed = 10f;
 	Rigidbody rb;
 
 	// Use this for initialization
@@ -32,17 +32,19 @@ public class move_test : MonoBehaviour {
 		RaycastHit hit = new RaycastHit ();
 
 				if (Physics.Raycast (ray, out hit)) {
-				result = hit.collider.gameObject;
+                Debug.Log("click");
+                result = hit.collider.gameObject;
 				this.transform.LookAt (result.transform.position);
 				rb.velocity = transform.forward * speed;
 				moving = true;
 					}
 		}
-		if (moving = true) {
-			if (Vector3.Distance (result.transform.position, this.transform.position) > 0.1f) {
+		if (moving) {
+			if (Vector3.Distance (result.transform.position, this.transform.position) < 0.1f) {
 				rb.velocity = new Vector3 (0, 0, 0);
 				moving = false;
-			} 
+                Debug.Log("moving");
+            } 
 		}
 
 
