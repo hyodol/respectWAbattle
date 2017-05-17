@@ -2,33 +2,53 @@
 using System.Collections;
 
 public class move_test : MonoBehaviour {
-
+	private bool moving; 
+	GameObject result = null;
+	GameObject mainCamera;
 	public GameObject target;
+	Camera main;
 	[SerializeField]
-	private float movement = 1f;
-	[SerializeField]
-	private float rotatespeed = 2f;
-	float moveX = 0f, moveZ = 1f;
+	private float speed = 10f;
 	Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
-		target = GameObject.Find("targetpointA");
-		//Vector3 targetposition = target.transform.position; 
+		//target = GameObject.Find("targetpointA");
 		rb = this.GetComponent<Rigidbody> ();
-
+		mainCamera = GameObject.Find ("Main Camera");
+		moving = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		this.transform.LookAt (target.transform);
-		movetotarget ();
+		main = mainCamera.GetComponent <Camera> ();
+		Vector3 mousePos = main.ScreenToWorldPoint (Input.mousePosition);
+		Collider2D col = Physics2D.OverlapPoint (mousePos);
+
+
+		if (Input.GetMouseButtonDown (0)) {
+
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit = new RaycastHit ();
+
+				if (Physics.Raycast (ray, out hit)) {
+                Debug.Log("click");
+                result = hit.collider.gameObject;
+				this.transform.LookAt (result.transform.position);
+				rb.velocity = transform.forward * speed;
+				moving = true;
+					}
+		}
+		if (moving) {
+			if (Vector3.Distance (result.transform.position, this.transform.position) < 0.1f) {
+				rb.velocity = new Vector3 (0, 0, 0);
+				moving = false;
+                Debug.Log("moving");
+            } 
+		}
+
 
 	}
 
-	void movetotarget () {
-		//while (Vector3.Distance (target.transform.position, this.transform.position) >  0.3f) {
-			rb.velocity = transform.forward * 10f;
-		//}
-	}
+
 }
