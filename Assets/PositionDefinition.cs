@@ -12,12 +12,13 @@ public class PositionDefinition : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Positions = GameObject.FindGameObjectsWithTag ("Positions");
+		result = Target (PosNum, Direction);
+		Debug.Log ("result is Position", Target);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		result = Target (PosNum, Direction);
-		Debug.Log ("result is Position", Target);
+
 	}
 }
 
