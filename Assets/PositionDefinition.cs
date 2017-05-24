@@ -13,6 +13,7 @@ public class PositionDefinition : MonoBehaviour {
 	void Start () {
 		Positions = GameObject.FindGameObjectsWithTag ("Positions");
 		result = Target (PosNum, Direction);
+		Debug.Log (result);
 		//Debug.Log ("result is Position", Target);
 	}
 	
@@ -22,8 +23,10 @@ public class PositionDefinition : MonoBehaviour {
 	}
 
 	public int Target (int PosNum, string Direction){
-		if(Direction == "Right"){
+		if (Direction == "Right") {
 			return PosNum + 1;
+		} else {
+			return PosNum - 1;
 		}
 	}
 }
