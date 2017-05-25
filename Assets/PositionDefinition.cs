@@ -5,7 +5,7 @@ public class PositionDefinition : MonoBehaviour {
 
 	public GameObject[] Positions;
 	int PosNum = 1;
-	string Direction = "Right";
+	string Direction = "LowerRight";
 	int result;
 	//int Target(int string);
 
@@ -19,15 +19,21 @@ public class PositionDefinition : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		Debug.Log (PosNum);
 	}
 
 	public int Target (int PosNum, string Direction){
 		if (Direction == "Right") {
-			return PosNum + 1;
-		} else {
-			return PosNum - 1;
+			return 2;
+		} 
+		if (Direction == "LowerRight") {
+			return 4;
+		} 
+
+		if (Direction == "LowerLeft") {
+			return 3;
 		}
+		else{return 0;}
 	}
 }
 
